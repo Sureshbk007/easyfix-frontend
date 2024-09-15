@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
   return (
-    <Container size={460} my={30}>
+    <Container size={460} my={60}>
       <Title className={classes.title} ta="center">
         Forgot your password?
       </Title>
@@ -32,17 +32,21 @@ export default function ForgotPassword() {
           required
         />
         <Group justify="space-between" mt="lg" className={classes.controls}>
-          <Link to="/login">
-            <Anchor c="dimmed" size="sm" className={classes.control}>
-              <Center inline>
-                <IconArrowLeft
-                  style={{ width: rem(12), height: rem(12) }}
-                  stroke={1.5}
-                />
-                <Box ml={5}>Back to the login page</Box>
-              </Center>
-            </Anchor>
-          </Link>
+          <Anchor
+            component={Link}
+            to="/login"
+            c="dimmed"
+            size="sm"
+            className={classes.control}
+          >
+            <Center inline>
+              <IconArrowLeft
+                style={{ width: rem(12), height: rem(12) }}
+                stroke={1.5}
+              />
+              <Box ml={5}>Back to the login page</Box>
+            </Center>
+          </Anchor>
           <Button className={classes.control}>Reset password</Button>
         </Group>
       </Paper>

@@ -21,11 +21,9 @@ export default function Register() {
       </Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
         Already have an account?{" "}
-        <Link to="/login">
-          <Anchor size="sm" component="button">
-            Login
-          </Anchor>
-        </Link>
+        <Anchor size="sm" component={Link} to="/login">
+          Login
+        </Anchor>
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">

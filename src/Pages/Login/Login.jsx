@@ -21,11 +21,9 @@ export default function Login() {
       </Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
         Do not have an account yet?{" "}
-        <Link to="/register">
-          <Anchor size="sm" component="button">
-            Create account
-          </Anchor>
-        </Link>
+        <Anchor size="sm" component={Link} to="/register">
+          Create account
+        </Anchor>
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
@@ -38,11 +36,9 @@ export default function Login() {
         />
         <Group justify="space-between" mt="lg">
           <Checkbox label="Remember me" />
-          <Link to="/forgot-password">
-            <Anchor component="button" size="sm">
-              Forgot password?
-            </Anchor>
-          </Link>
+          <Anchor component={Link} size="sm" to="/forgot-password">
+            Forgot password?
+          </Anchor>
         </Group>
         <Button fullWidth mt="xl">
           Sign in
