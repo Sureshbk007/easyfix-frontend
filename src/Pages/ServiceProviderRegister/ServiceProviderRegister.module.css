@@ -4,9 +4,3 @@
     var(--mantine-font-family);
   font-weight: 900;
 }
-
-.error{
-  font-size: 14px;
-  color: red;
-  margin-top: 10px;
-}

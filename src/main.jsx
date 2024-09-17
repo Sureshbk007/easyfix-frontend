@@ -8,7 +8,16 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { ForgotPassword, Home, Login, Register } from "./Pages/index.js";
+import {
+  ForgotPassword,
+  Home,
+  Login,
+  PageNotFound,
+  Register,
+  ServiceProviderRegister,
+} from "./Pages/index.js";
+import { Provider } from "react-redux";
+import { store } from "./store/store.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,12 +25,16 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/service-register" element={<ServiceProviderRegister />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="*" element={<PageNotFound />} />
     </Route>
   )
 );
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={router}></RouterProvider>
+    </Provider>
   </StrictMode>
 );

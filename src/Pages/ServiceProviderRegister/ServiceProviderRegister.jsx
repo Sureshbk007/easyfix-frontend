@@ -1,48 +1,71 @@
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
   Anchor,
   Paper,
   Title,
   Text,
   Container,
-  Group,
   Button,
-  Alert,
 } from "@mantine/core";
-import classes from "./Login.module.css";
+import classes from "./ServiceProviderRegister.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../store/userSlice";
+import { registerUser } from "../../store/userSlice";
 
-export default function Login() {
+export default function ServiceProviderRegister() {
+  const [name, setName] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.user);
 
-  const handleLogin = () => {
-    dispatch(loginUser({ email, password }));
+  const handleRegister = () => {
+    dispatch(
+      registerUser({
+        name,
+        businessName,
+        email,
+        password,
+        role: "serviceProvider",
+      })
+    );
   };
 
   return (
-    <Container size={420} my={50}>
+    <Container size={420} my={20}>
       <Title ta="center" className={classes.title}>
-        Welcome back!
+        Become a Service Provider Today!
       </Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Do not have an account yet?{" "}
-        <Anchor size="sm" component={Link} to="/register">
-          Create account
+        Already have an account?{" "}
+        <Anchor size="sm" component={Link} to="/login">
+          Login
         </Anchor>
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <TextInput
+          label="Full Name"
+          placeholder="Ram bahadur"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <TextInput
+          label="Business Name"
+          placeholder="Ram's Plumbing"
+          mt="md"
+          value={businessName}
+          onChange={(e) => setBusinessName(e.target.value)}
+          required
+        />
+        <TextInput
           label="Email"
-          placeholder="you@mantine.dev"
+          placeholder="ram@gmail.com"
+          mt="md"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -60,13 +83,8 @@ export default function Login() {
             {error}
           </Alert>
         )}
-        <Group justify="space-between" mt="lg">
-          <Anchor component={Link} size="sm" to="/forgot-password">
-            Forgot password?
-          </Anchor>
-        </Group>
-        <Button fullWidth mt="xl" loading={loading} onClick={handleLogin}>
-          Sign in
+        <Button fullWidth mt="xl" loading={loading} onClick={handleRegister}>
+          Register
         </Button>
       </Paper>
     </Container>
