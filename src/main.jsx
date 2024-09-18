@@ -9,11 +9,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import {
+  Category,
   ForgotPassword,
   Home,
   Login,
   PageNotFound,
   Register,
+  Search,
+  ServiceDetail,
   ServiceProviderRegister,
 } from "./Pages/index.js";
 import { Provider } from "react-redux";
@@ -27,6 +30,9 @@ const router = createBrowserRouter(
       <Route path="/register" element={<Register />} />
       <Route path="/service-register" element={<ServiceProviderRegister />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/search" element={<Search />} />
+      <Route path="/category/:slug" element={<Category />} />
+      <Route path="/service/:slug" element={<ServiceDetail />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )

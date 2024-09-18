@@ -6,6 +6,7 @@ import {
   Group,
   Image,
   Text,
+  Title,
 } from "@mantine/core";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -13,8 +14,14 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useRef } from "react";
+import {
+  IconArrowBadgeRightFilled,
+  IconArrowBadgeLeftFilled,
+} from "@tabler/icons-react";
+import { Link } from "react-router-dom";
+import CardComponent from "../CardComponent/CardComponent";
 
-function Carousel({ data }) {
+function Carousel({ label }) {
   const swiperRef = useRef(null);
   const isMobile = window.innerWidth <= 768;
 
@@ -23,13 +30,15 @@ function Carousel({ data }) {
   return (
     <div style={{ marginBottom: "40px" }}>
       <Flex justify="space-between" align="center">
-        <h1>Featured Services</h1>
+        <Title order={2} my="md">
+          {label}
+        </Title>
         <Group gap="xs" visibleFrom="md">
           <Button onClick={slidePrev} radius="lg">
-            &lt;
+            <IconArrowBadgeLeftFilled />
           </Button>
           <Button onClick={slideNext} radius="lg">
-            &gt;
+            <IconArrowBadgeRightFilled />
           </Button>
         </Group>
       </Flex>
@@ -40,44 +49,7 @@ function Carousel({ data }) {
       >
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((slide, index) => (
           <SwiperSlide key={index}>
-            <Card
-              shadow="sm"
-              component="a"
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-              target="_blank"
-            >
-              <Card.Section>
-                <Image
-                  src="https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp"
-                  h={160}
-                  alt="No way!"
-                />
-              </Card.Section>
-
-              <Text
-                fw={500}
-                size="lg"
-                mt="md"
-                style={{
-                  whiteSpace: "nowrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
-                You&apos;ve won a million dollars in cash!
-              </Text>
-              <Text c="dimmed" size="xs">
-                By Jane's Plumbing
-              </Text>
-              <Text fw={500} size="lg" c="blue">
-                Rs 1500
-              </Text>
-
-              <Text mt="xs" c="dimmed" size="sm">
-                Please click anywhere on this card to claim your reward, this is
-                not a fraud, trust us
-              </Text>
-            </Card>
+            <CardComponent component={Link} to={`/service/${slide}`} />
           </SwiperSlide>
         ))}
       </Swiper>

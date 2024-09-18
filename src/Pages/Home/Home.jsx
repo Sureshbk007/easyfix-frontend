@@ -9,6 +9,7 @@ import {
   Pill,
   Card,
   Group,
+  SimpleGrid,
 } from "@mantine/core";
 import classes from "./Home.module.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,7 +21,8 @@ function Home() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     navigate(`/search?q=${search}`);
   };
   return (
@@ -65,35 +67,33 @@ function Home() {
         <Image src={landingImageSvg} className={classes.image} />
       </div>
       <div>
-        <h1>Browse by Category</h1>
-        <Group gap="md">
-          {[1, 2, 3, 4, 5].map((card, index) => (
+        <h2>Browse by Category</h2>
+        <SimpleGrid cols={{ base: 2, md: 5 }} spacing="xs" verticalSpacing="xs">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((card, index) => (
             <Card
               key={index}
-              w={200}
+              w={{ md: 200 }}
               component={Link}
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              to={`/category/${card}`}
               style={{ backgroundColor: "transparent" }}
             >
               <Card.Section>
                 <Image
                   src="https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp"
-                  h={200}
-                  w={200}
                   radius="lg"
-                  alt="No way!"
+                  alt="category"
                 />
               </Card.Section>
 
-              <Title c="dimmed" size="xs" align="center" mt="xs">
+              <Title c="dimmed" fz="lg" align="center" mt="xs"> 
                 Plumbing
               </Title>
             </Card>
           ))}
-        </Group>
+        </SimpleGrid>
       </div>
-      <Carousel />
-      <Carousel />
+      <Carousel label="Featured Services" />
+      <Carousel label="Popular Services" />
     </Container>
   );
 }
