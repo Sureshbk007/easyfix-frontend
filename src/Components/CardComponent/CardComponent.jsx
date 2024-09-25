@@ -1,29 +1,25 @@
 import { Card, Image, Text } from "@mantine/core";
 
-function CardComponent({ ...options }) {
+function CardComponent({ data, ...options }) {
+  const { image, title, provider, cost, description } = data;
   return (
     <Card shadow="sm" {...options}>
       <Card.Section>
-        <Image
-          src="https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp"
-          h={160}
-          alt="No way!"
-        />
+        <Image src={image} h={160} alt={title} />
       </Card.Section>
 
       <Text fw={500} size="lg" mt="md" lineClamp={1}>
-        You&apos;ve won a million dollars in cash!
+        {title}
       </Text>
       <Text c="dimmed" size="xs">
-        By Jane's Plumbing
+        By {provider}
       </Text>
       <Text fw={500} size="lg" c="blue">
-        Rs 1500
+        Rs {cost}
       </Text>
 
       <Text mt="xs" c="dimmed" size="sm">
-        Please click anywhere on this card to claim your reward, this is not a
-        fraud, trust us
+        {description}
       </Text>
     </Card>
   );

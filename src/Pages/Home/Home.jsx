@@ -25,6 +25,90 @@ function Home() {
     e.preventDefault();
     navigate(`/search?q=${search}`);
   };
+
+  const categories = [
+    {
+      slug: "plumbing",
+      title: "Plumbing",
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+    },
+    {
+      slug: "electrician",
+      title: "Electrician",
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+    },
+    {
+      slug: "painter",
+      title: "Painter",
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+    },
+    {
+      slug: "plumbing",
+      title: "Plumbing",
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+    },
+  ];
+  const data = [
+    {
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+      title: "You've won a million dollars in cash!",
+      provider: "Jane's Plumbing",
+      cost: 1500,
+      description:
+        "Please click anywhere on this card to claim your reward, this is not a fraud, trust us",
+    },
+    {
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+      title: "You've won a million dollars in cash!",
+      provider: "Jane's Plumbing",
+      cost: 1500,
+      description:
+        "Please click anywhere on this card to claim your reward, this is not a fraud, trust us",
+    },
+    {
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+      title: "You've won a million dollars in cash!",
+      provider: "Jane's Plumbing",
+      cost: 1500,
+      description:
+        "Please click anywhere on this card to claim your reward, this is not a fraud, trust us",
+    },
+    {
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+      title: "You've won a million dollars in cash!",
+      provider: "Jane's Plumbing",
+      cost: 1500,
+      description:
+        "Please click anywhere on this card to claim your reward, this is not a fraud, trust us",
+    },
+    {
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+      title: "You've won a million dollars in cash!",
+      provider: "Jane's Plumbing",
+      cost: 1500,
+      description:
+        "Please click anywhere on this card to claim your reward, this is not a fraud, trust us",
+    },
+    {
+      image:
+        "https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp",
+      title: "You've won a million dollars in cash!",
+      provider: "Jane's Plumbing",
+      cost: 1500,
+      description:
+        "Please click anywhere on this card to claim your reward, this is not a fraud, trust us",
+    },
+  ];
+
   return (
     <Container size="lg">
       <div className={classes.inner}>
@@ -69,31 +153,27 @@ function Home() {
       <div>
         <h2>Browse by Category</h2>
         <SimpleGrid cols={{ base: 2, md: 5 }} spacing="xs" verticalSpacing="xs">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((card, index) => (
+          {categories.map((card, index) => (
             <Card
               key={index}
               w={{ md: 200 }}
               component={Link}
-              to={`/category/${card}`}
+              to={`/category/${card.slug}`}
               style={{ backgroundColor: "transparent" }}
             >
               <Card.Section>
-                <Image
-                  src="https://s3.ap-south-1.amazonaws.com/cdn.sajilosewa.com/uploads/service/66867b87656e8bd02d5077e9.webp"
-                  radius="lg"
-                  alt="category"
-                />
+                <Image src={card.image} radius="lg" alt="category" />
               </Card.Section>
 
-              <Title c="dimmed" fz="lg" align="center" mt="xs"> 
-                Plumbing
+              <Title c="dimmed" fz="lg" align="center" mt="xs">
+                {card.title}
               </Title>
             </Card>
           ))}
         </SimpleGrid>
       </div>
-      <Carousel label="Featured Services" />
-      <Carousel label="Popular Services" />
+      <Carousel label="Featured Services" data={data} />
+      <Carousel label="Popular Services" data={data} />
     </Container>
   );
 }

@@ -11,7 +11,6 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useRef } from "react";
 import {
@@ -21,7 +20,7 @@ import {
 import { Link } from "react-router-dom";
 import CardComponent from "../CardComponent/CardComponent";
 
-function Carousel({ label }) {
+function Carousel({ label, data }) {
   const swiperRef = useRef(null);
   const isMobile = window.innerWidth <= 768;
 
@@ -47,9 +46,13 @@ function Carousel({ label }) {
         slidesPerView={isMobile ? 1.5 : 3.5}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((slide, index) => (
+        {data.map((slide, index) => (
           <SwiperSlide key={index}>
-            <CardComponent component={Link} to={`/service/${slide}`} />
+            <CardComponent
+              component={Link}
+              to={`/service/${slide}`}
+              data={slide}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
