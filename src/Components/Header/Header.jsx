@@ -14,6 +14,7 @@ import {
   ScrollArea,
   rem,
   useMantineTheme,
+  Flex,
 } from "@mantine/core";
 import logo from "../../assets/logo.png";
 import { useDisclosure } from "@mantine/hooks";
@@ -25,69 +26,79 @@ import {
   IconFingerprint,
   IconCoin,
   IconChevronDown,
+  IconUserCircle,
 } from "@tabler/icons-react";
 import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/userSlice";
 
-const mockdata = [
-  {
-    icon: IconCode,
-    title: "Open source",
-    description: "This Pokémon’s cry is very loud and distracting",
-  },
-  {
-    icon: IconCoin,
-    title: "Free for everyone",
-    description: "The fluid of Smeargle’s tail secretions changes",
-  },
-  {
-    icon: IconBook,
-    title: "Documentation",
-    description: "Yanma is capable of seeing 360 degrees without",
-  },
-  {
-    icon: IconFingerprint,
-    title: "Security",
-    description: "The shell’s rounded shape and the grooves on its.",
-  },
-  {
-    icon: IconChartPie3,
-    title: "Analytics",
-    description: "This Pokémon uses its flying ability to quickly chase",
-  },
-  {
-    icon: IconNotification,
-    title: "Notifications",
-    description: "Combusken battles with the intensely hot flames it spews",
-  },
-];
+// const mockdata = [
+//   {
+//     icon: IconCode,
+//     title: "Open source",
+//     description: "This Pokémon’s cry is very loud and distracting",
+//   },
+//   {
+//     icon: IconCoin,
+//     title: "Free for everyone",
+//     description: "The fluid of Smeargle’s tail secretions changes",
+//   },
+//   {
+//     icon: IconBook,
+//     title: "Documentation",
+//     description: "Yanma is capable of seeing 360 degrees without",
+//   },
+//   {
+//     icon: IconFingerprint,
+//     title: "Security",
+//     description: "The shell’s rounded shape and the grooves on its.",
+//   },
+//   {
+//     icon: IconChartPie3,
+//     title: "Analytics",
+//     description: "This Pokémon uses its flying ability to quickly chase",
+//   },
+//   {
+//     icon: IconNotification,
+//     title: "Notifications",
+//     description: "Combusken battles with the intensely hot flames it spews",
+//   },
+// ];
 
 export function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
+  const isAuthenticated = useSelector((state) => state.user.isLogged);
+  const dispatch = useDispatch();
 
-  const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
-      <Group wrap="nowrap" align="flex-start">
-        <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon
-            style={{ width: rem(22), height: rem(22) }}
-            color={theme.colors.blue[6]}
-          />
-        </ThemeIcon>
-        <div>
-          <Text size="sm" fw={500}>
-            {item.title}
-          </Text>
-          <Text size="xs" c="dimmed">
-            {item.description}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
-  ));
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout action
+    closeDrawer(); // Close the drawer if open
+  };
+
+  // const links = mockdata.map((item) => (
+  //   <UnstyledButton className={classes.subLink} key={item.title}>
+  //     <Group wrap="nowrap" align="flex-start">
+  //       <ThemeIcon size={34} variant="default" radius="md">
+  //         <item.icon
+  //           style={{ width: rem(22), height: rem(22) }}
+  //           color={theme.colors.blue[6]}
+  //         />
+  //       </ThemeIcon>
+  //       <div>
+  //         <Text size="sm" fw={500}>
+  //           {item.title}
+  //         </Text>
+  //         <Text size="xs" c="dimmed">
+  //           {item.description}
+  //         </Text>
+  //       </div>
+  //     </Group>
+  //   </UnstyledButton>
+  // ));
 
   return (
     <Box py="xs">
@@ -108,12 +119,25 @@ export function Header() {
           </Group>
 
           <Group visibleFrom="sm">
-            <Link to="/login">
-              <Button variant="default">Log in</Button>
-            </Link>
-            <Link to="/register">
-              <Button>Sign up</Button>
-            </Link>
+            {!isAuthenticated ? (
+              <>
+                <Link to="/login">
+                  <Button variant="default">Log in</Button>
+                </Link>
+                <Link to="/register">
+                  <Button>Sign up</Button>
+                </Link>
+              </>
+            ) : (
+              <Flex gap="15px">
+                <Link to="/dashboard">
+                  <IconUserCircle size={35} />
+                </Link>
+                <Button onClick={handleLogout} bg="red">
+                  Log out
+                </Button>
+              </Flex>
+            )}
           </Group>
 
           <Burger
@@ -140,7 +164,7 @@ export function Header() {
           <Link to="/" className={classes.link} onClick={closeDrawer}>
             Home
           </Link>
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
+          {/* <UnstyledButton className={classes.link} onClick={toggleLinks}>
             <Center inline>
               <Box component="span" mr={5}>
                 Features
@@ -150,11 +174,8 @@ export function Header() {
                 color={theme.colors.blue[6]}
               />
             </Center>
-          </UnstyledButton>
-          <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="#" className={classes.link}>
-            Learn
-          </a>
+          </UnstyledButton> */}
+          {/* <Collapse in={linksOpened}>{links}</Collapse> */}
           <Anchor
             component={Link}
             to="/service-register"
@@ -167,16 +188,29 @@ export function Header() {
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            <Anchor component={Link} to="/login">
-              <Button variant="default" onClick={closeDrawer} fullWidth>
-                Log in
-              </Button>
-            </Anchor>
-            <Anchor component={Link} to="register">
-              <Button onClick={closeDrawer} fullWidth>
-                Sign up
-              </Button>
-            </Anchor>
+            {!isAuthenticated ? (
+              <>
+                <Anchor component={Link} to="/login">
+                  <Button variant="default" onClick={closeDrawer} fullWidth>
+                    Log in
+                  </Button>
+                </Anchor>
+                <Anchor component={Link} to="register">
+                  <Button onClick={closeDrawer} fullWidth>
+                    Sign up
+                  </Button>
+                </Anchor>
+              </>
+            ) : (
+              <Flex justify="space-between">
+                <Link to="/user-dashboard">
+                  <IconUserCircle size={35} />
+                </Link>
+                <Button onClick={handleLogout} bg="red">
+                  Log out
+                </Button>
+              </Flex>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>

@@ -2,6 +2,7 @@ import { Card, Image, Text } from "@mantine/core";
 
 function CardComponent({ data, ...options }) {
   const { image, title, provider, cost, description } = data;
+
   return (
     <Card shadow="sm" {...options}>
       <Card.Section>

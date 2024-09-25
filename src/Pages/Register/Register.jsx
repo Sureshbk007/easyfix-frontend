@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../store/userSlice";
 import { useForm } from "@mantine/form";
+import { Header } from "../../Components/Header/Header";
+import { Footer } from "../../Components/Footer/Footer";
 
 export default function Register() {
   const dispatch = useDispatch();
@@ -43,49 +45,53 @@ export default function Register() {
   };
 
   return (
-    <Container size={420} my={50}>
-      <Title ta="center" className={classes.title}>
-        Register now!
-      </Title>
-      <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Already have an account?{" "}
-        <Anchor size="sm" component={Link} to="/login">
-          Login
-        </Anchor>
-      </Text>
+    <>
+      <Header />
+      <Container size={420} my={50}>
+        <Title ta="center" className={classes.title}>
+          Register now!
+        </Title>
+        <Text c="dimmed" size="sm" ta="center" mt={5}>
+          Already have an account?{" "}
+          <Anchor size="sm" component={Link} to="/login">
+            Login
+          </Anchor>
+        </Text>
 
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={form.onSubmit((values) => handleRegister(values))}>
-          <TextInput
-            label="Full Name"
-            placeholder="Ram Bahadur"
-            {...form.getInputProps("name")}
-            error={form.errors.name}
-          />
-          <TextInput
-            label="Email"
-            placeholder="ram@gmail.com"
-            mt="md"
-            {...form.getInputProps("email")}
-            error={form.errors.email}
-          />
-          <PasswordInput
-            label="Password"
-            placeholder="Your password"
-            mt="md"
-            {...form.getInputProps("password")}
-            error={form.errors.password}
-          />
-          {error && (
-            <Alert color="red" mt="md">
-              {error}
-            </Alert>
-          )}
-          <Button type="submit" fullWidth mt="xl" loading={loading}>
-            Register
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <form onSubmit={form.onSubmit((values) => handleRegister(values))}>
+            <TextInput
+              label="Full Name"
+              placeholder="Ram Bahadur"
+              {...form.getInputProps("name")}
+              error={form.errors.name}
+            />
+            <TextInput
+              label="Email"
+              placeholder="ram@gmail.com"
+              mt="md"
+              {...form.getInputProps("email")}
+              error={form.errors.email}
+            />
+            <PasswordInput
+              label="Password"
+              placeholder="Your password"
+              mt="md"
+              {...form.getInputProps("password")}
+              error={form.errors.password}
+            />
+            {error && (
+              <Alert color="red" mt="md">
+                {error}
+              </Alert>
+            )}
+            <Button type="submit" fullWidth mt="xl" loading={loading}>
+              Register
+            </Button>
+          </form>
+        </Paper>
+      </Container>
+      <Footer />
+    </>
   );
 }

@@ -7,6 +7,7 @@ import PageNotFound from "./PageNotFound/PageNotFound";
 import Search from "./Search/Search";
 import Category from "./Category/Category";
 import ServiceDetail from "./ServiceDetail/ServiceDetail";
+import Dashboard from "./Dashboard/Dashboard";
 
 export {
   Home,
@@ -18,4 +19,5 @@ export {
   Search,
   Category,
   ServiceDetail,
+  Dashboard,
 };

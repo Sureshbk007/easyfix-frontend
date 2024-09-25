@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import {
   Category,
+  Dashboard,
   ForgotPassword,
   Home,
   Login,
@@ -21,6 +22,7 @@ import {
 } from "./Pages/index.js";
 import { Provider } from "react-redux";
 import { store } from "./store/store.js";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +35,9 @@ const router = createBrowserRouter(
       <Route path="/search" element={<Search />} />
       <Route path="/category/:slug" element={<Category />} />
       <Route path="/service/:slug" element={<ServiceDetail />} />
+      <Route element={<ProtectedRoute allowedRoles={["user", "admin"]} />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )

@@ -36,11 +36,13 @@ const userSlice = createSlice({
     userInfo: null,
     loading: false,
     error: null,
+    isLogged: false,
   },
   reducers: {
     logout: (state) => {
-      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       state.userInfo = null;
+      state.isLogged = false;
     },
   },
   extraReducers: (builder) => {
@@ -52,11 +54,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.userInfo = action.payload;
-        localStorage.setItem("token", action.payload.token);
+        state.isLogged = true;
+        localStorage.setItem("user", JSON.stringify(action.payload));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.isLogged = false;
       });
 
     builder
@@ -67,11 +71,13 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.userInfo = action.payload;
+        state.isLogged = true;
         localStorage.setItem("token", action.payload.token);
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.isLogged = false;
       });
   },
 });

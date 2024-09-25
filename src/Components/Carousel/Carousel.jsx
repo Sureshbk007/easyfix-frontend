@@ -50,7 +50,7 @@ function Carousel({ label, data }) {
           <SwiperSlide key={index}>
             <CardComponent
               component={Link}
-              to={`/service/${slide}`}
+              to={`/service/${slide.slug}`}
               data={slide}
             />
           </SwiperSlide>
